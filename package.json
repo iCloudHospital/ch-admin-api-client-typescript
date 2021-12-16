@@ -1,6 +1,6 @@
 {
   "name": "ch-api-client-typescript",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Openapi generated typescript-axios client for CloudHospital",
   "main": "index.js",
   "scripts": {
