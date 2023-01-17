@@ -2,6 +2,16 @@
   "$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "6.2.1"
+    "version": "6.2.1",
+    "generators": {
+      "adminapi": {
+        "generatorName": "typescript-axios",
+        "inputSpec": "https://admin-api-int.icloudhospital.com/swagger/v1/swagger.json",
+        "output": "#{cwd}/src",
+        "typeMappings": "DateTime=Date",
+        "generateAliasAsModel": true,
+        "logToStderr": true
+      }
+    }
   }
 }
