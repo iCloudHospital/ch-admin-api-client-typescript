@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
-    "build": "openapi-generator-cli version-manager set 5.3.0 && openapi-generator-cli generate -g typescript-axios -o src -i https://admin-api-int.icloudhospital.com/swagger/v1/swagger.json --type-mappings=DateTime=Date && tsc"
+    "build": "openapi-generator-cli generate -g typescript-axios -o src -i https://admin-api-int.icloudhospital.com/swagger/v1/swagger.json --type-mappings=DateTime=Date && tsc"
   },
   "repository": {
     "type": "git",
@@ -19,11 +19,11 @@
   "author": "hyounoosung@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.0",
-    "typescript": "^3.8.3"
+    "axios": "^1.2.1",
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.1.7",
-    "@types/node": "^13.9.0"
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@types/node": "^18.11.18"
   }
 }
