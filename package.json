@@ -2,10 +2,12 @@
   "name": "ch-admin-api-client-typescript",
   "version": "4.7.6",
   "description": "Openapi generated typescript-axios client for CloudHospital admin",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
-    "build": "openapi-generator-cli generate -g typescript-axios -o src -i https://admin-api-int.icloudhospital.com/swagger/v1/swagger.json --type-mappings=DateTime=Date && tsc"
+    "build": "openapi-generator-cli generate && tsc",
+    "validate": "openapi-generator-cli validate -i http://localhost:5008/swagger/v1/swagger.json"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
   "author": "hyounoosung@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.2.1",
+    "axios": "^1.2.2",
     "typescript": "^4.9.4"
   },
   "devDependencies": {
