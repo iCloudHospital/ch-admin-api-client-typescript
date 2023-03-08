@@ -10,7 +10,12 @@
         "output": "#{cwd}/src",
         "typeMappings": "DateTime=Date",
         "generateAliasAsModel": true,
-        "logToStderr": true
+        "logToStderr": true,
+        "additional-properties": {
+          "withSeparateModelsAndApi": true,
+          "apiPackage": "api",
+          "modelPackage": "models"
+        }
       }
     }
   }
