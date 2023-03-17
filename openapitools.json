@@ -12,6 +12,7 @@
         "generateAliasAsModel": true,
         "logToStderr": true,
         "additional-properties": {
+          "useSingleRequestParameter": true,
           "withSeparateModelsAndApi": true,
           "apiPackage": "api",
           "modelPackage": "models"
