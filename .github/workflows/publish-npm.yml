@@ -29,3 +29,14 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: Wait 10 minutes
+        run: sleep 600
+  
+      - name: Send HTTP request after publish
+        run: |
+            curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"package": "ch-admin-api-client-typescript"}' \
+            https://n8n.icloudhospital.com/webhook/github-api-release
