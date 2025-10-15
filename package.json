@@ -1,6 +1,6 @@
 {
   "name": "ch-admin-api-client-typescript",
-  "version": "5.79.11",
+  "version": "5.79.13",
   "description": "Openapi generated typescript-axios client for CloudHospital admin",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
