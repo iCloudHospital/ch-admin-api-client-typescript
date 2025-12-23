@@ -48,12 +48,24 @@ jobs:
           VERSION="${{ github.event.client_payload.message.tag }}"
           git tag -a "$VERSION" -m "Release $VERSION"
 
-      - name: Add & Commit
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: github-actions[bot]
-          author_email: github-actions[bot]@users.noreply.github.com
-          tag_push: "--force"
+      # - name: Add & Commit
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     author_name: github-actions[bot]
+      #     author_email: github-actions[bot]@users.noreply.github.com
+      #     tag_push: "--force"
+
+      - name: Add commit
+        run: |
+          VERSION="${{ github.event.client_payload.message.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"          
+          git add .
+          git commit -m "chore: automated update $VERSION"
+
+      - name: Push changes
+        run: |
+          git push origin ${{ github.event.repository.default_branch }} --follow-tags
 
       - run: npm run build
 
