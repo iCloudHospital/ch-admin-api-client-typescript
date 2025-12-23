@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org
+          node-version: 20
+          registry-url: "https://registry.npmjs.org/"
       - run: npm ci
       - name: Echo payload
         run: echo ${{ github.event.client_payload.message.tag }}
@@ -30,4 +30,4 @@ jobs:
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
       - run: npm run-script build
-      - run: npm publish
+      - run: npm publish --provenance --access public
