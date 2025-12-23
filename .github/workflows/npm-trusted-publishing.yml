@@ -59,4 +59,4 @@ jobs:
       #     NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
 
       - name: Publish (OIDC)
-        run: npm publish --access public
+        run: NODE_AUTH_TOKEN="" npm publish --access public
