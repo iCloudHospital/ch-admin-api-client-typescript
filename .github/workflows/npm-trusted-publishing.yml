@@ -1,9 +1,17 @@
 name: NPM Trusted Publishing
 
+# on:
+#   push:
+#     tags:
+#       - "v*"
+
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+    paths:
+      - "package.json"
+
 env:
   NODE_VERSION: 24
 
