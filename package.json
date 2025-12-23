@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/icloudhospital/ch-admin-api-client-typescript.git"
+    "url": "git+https://github.com/iCloudHospital/ch-admin-api-client-typescript.git"
   },
   "keywords": [
     "CloudHospital",
