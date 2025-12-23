@@ -45,8 +45,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"          
-          git tag -a "v${{ github.event.client_payload.message.tag }}" -m "🔖 Release v${{ github.event.client_payload.message.tag }}"
-          git push origin "v${{ github.event.client_payload.message.tag }}"          
+          git tag -a "${{ github.event.client_payload.message.tag }}" -m "🔖 Release ${{ github.event.client_payload.message.tag }}"
+          git push origin "${{ github.event.client_payload.message.tag }}"
 
       # - name: Check if tag already exists
       #   run: |
