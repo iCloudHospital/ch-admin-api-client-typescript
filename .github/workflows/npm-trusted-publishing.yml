@@ -60,3 +60,24 @@ jobs:
 
       - name: Publish (OIDC)
         run: NODE_AUTH_TOKEN="" npm publish --access public
+
+      - name: Get package version
+        id: get_version
+        uses: bbonkr/get-version-action@v1.0.5
+        with:
+          project: "./package.json"
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                text: `ch-api-client-typescript2 ${{ steps.get_version.outputs.version }} publish ${{ job.status }} in ${process.env.AS_TOOK}`,
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          if: always()
