@@ -67,17 +67,26 @@ jobs:
         with:
           project: "./package.json"
 
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: custom
-          fields: workflow,job,commit,repo,ref,author,took
-          custom_payload: |
-            {
-              attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `ch-admin-api-client-typescript ${{ steps.get_version.outputs.version }} publish ${{ job.status }} in ${process.env.AS_TOOK}`,
-              }]
-            }
+      # - uses: 8398a7/action-slack@v3
+      #   with:
+      #     status: custom
+      #     fields: workflow,job,commit,repo,ref,author,took
+      #     custom_payload: |
+      #       {
+      #         attachments: [{
+      #           color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+      #           text: `ch-admin-api-client-typescript ${{ steps.get_version.outputs.version }} publish ${{ job.status }} in ${process.env.AS_TOOK}`,
+      #         }]
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      #     if: always()
+
+      - name: Slack Notification (success)
+        uses: rtCamp/action-slack-notify@v2
+        if: always()
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          if: always()
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: "[${{ github.REPOSITORY }}] ${{ job.status }} Alert"
+          SLACK_MESSAGE: "✅ ${{ github.WORKFLOW }}: The workflow status is ${{ job.status }}"
