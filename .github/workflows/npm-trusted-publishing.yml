@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://registry.npmjs.org/"
 
       - name: Show tag info
         run: |
@@ -47,13 +47,16 @@ jobs:
         run: |
           npm run build
 
-      - name: Ensure no legacy npm token
-        run: |
-          npm config delete //registry.npmjs.org/:_authToken || true
-          rm -f ~/.npmrc
-          rm -f .npmrc
+      # - name: Ensure no legacy npm token
+      #   run: |
+      #     npm config delete //registry.npmjs.org/:_authToken || true
+      #     rm -f ~/.npmrc
+      #     rm -f .npmrc
+
+      # - name: Publish (OIDC)
+      #   run: npm publish --provenance --access public
+      #   env:
+      #     NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
 
       - name: Publish (OIDC)
-        run: npm publish --provenance --access public
-        env:
-          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
+        run: npm publish --access public
