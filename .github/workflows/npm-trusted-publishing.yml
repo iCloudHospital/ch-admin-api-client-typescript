@@ -75,7 +75,7 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `ch-api-client-typescript2 ${{ steps.get_version.outputs.version }} publish ${{ job.status }} in ${process.env.AS_TOOK}`,
+                text: `ch-admin-api-client-typescript ${{ steps.get_version.outputs.version }} publish ${{ job.status }} in ${process.env.AS_TOOK}`,
               }]
             }
         env:
