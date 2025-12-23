@@ -5,6 +5,9 @@ on:
     types:
       - publish npm package
 
+env:
+  NODE_VERSION: 24
+
 permissions:
   id-token: write
   contents: write
@@ -13,11 +16,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: "https://registry.npmjs.org/"
 
       - run: npm ci
@@ -31,18 +33,34 @@ jobs:
           version: ${{ github.event.client_payload.message.tag }}
           package: ./
 
+      - name: Check if tag already exists
+        run: |
+          VERSION="${{ github.event.client_payload.message.tag }}"
+          if git rev-parse "$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists"
+            exit 1
+          fi
+
+      - name: Create tag
+        run: |
+          VERSION="${{ github.event.client_payload.message.tag }}"
+          git tag -a "$VERSION" -m "Release $VERSION"
+
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
 
       - run: npm run build
 
-      - name: Ensure no legacy npm token
-        run: |
-          npm config delete //registry.npmjs.org/:_authToken || true
-          rm -f ~/.npmrc
-          rm -f .npmrc
+      # - name: Ensure no legacy npm token
+      #   run: |
+      #     npm config delete //registry.npmjs.org/:_authToken || true
+      #     rm -f ~/.npmrc
+      #     rm -f .npmrc
 
-      - name: Publish (OIDC)
-        run: npm publish --provenance --access public
-        env:
-          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
+      # - name: Publish (OIDC)
+      #   run: npm publish --provenance --access public
+      #   env:
+      #     NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
